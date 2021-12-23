@@ -1,1 +1,2 @@
-# shreyansh0297.zerodha-clone
+# zerodha-clone
+https://shreyansh0297.github.io/zc-frontend/
