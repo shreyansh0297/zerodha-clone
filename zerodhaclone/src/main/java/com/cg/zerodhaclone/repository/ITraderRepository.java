@@ -9,4 +9,5 @@ import com.cg.zerodhaclone.entities.Trader;
 public interface ITraderRepository extends JpaRepository<Trader, Long>{
 
 	public Trader findByEmailId(String emailId);
+	public Trader findByEmailIdAndPassword(String emailId,String password);
 }

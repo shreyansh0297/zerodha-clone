@@ -60,7 +60,21 @@ public class TraderTest {
 		
 		Mockito.when(traderRepo.getById(1L)).thenReturn(trader);
 		assertEquals(trader,traderService.updateTrader(1L, trader));
+	}
+	
+	@Test
+	public void getAllUsersTest() {
 		
+		Trader trader = new Trader(1L,"SL",LocalDate.parse("1989-05-05"),"sl@gmail.com","1234",
+				"9876543210",Role.TRADER);
+		Trader trader1 = new Trader(2L,"RJ",LocalDate.parse("1989-05-05"),"rj@gmail.com","1234",
+				"9876543210",Role.TRADER);
 		
+		List<Trader> tradersList = new ArrayList<Trader>();
+		tradersList.add(trader);
+		tradersList.add(trader1);
+		
+		Mockito.when(traderRepo.findAll()).thenReturn(tradersList);
+		assertEquals(2, traderService.getAllTraders().size());
 	}
 }

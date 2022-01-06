@@ -78,6 +78,11 @@ public class TraderServiceImpl implements ITraderService{
 	public Trader getByEmailId(String emailId) {
 		return traderRepo.findByEmailId(emailId);
 	}
+
+	@Override
+	public List<Trader> getAllTraders() {
+		return traderRepo.findAll();
+	}
 	
 	
 //	@Override

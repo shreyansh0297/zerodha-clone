@@ -7,13 +7,14 @@ import com.cg.zerodhaclone.entities.Admin;
 import com.cg.zerodhaclone.entities.Role;
 import com.cg.zerodhaclone.entities.Trader;
 import com.cg.zerodhaclone.entities.User;
+import com.cg.zerodhaclone.repository.ITraderRepository;
 import com.cg.zerodhaclone.repository.IUserRepository;
 
 @Service
 public class UserServiceImpl implements IUserService{
 	
 	@Autowired
-	private IUserRepository userRepo;
+	private ITraderRepository userRepo;
 
 	@Override
 	public User getUserEmail(String emailId) {
@@ -36,7 +37,7 @@ public class UserServiceImpl implements IUserService{
 	@Override
 	public User getUserById(Long id) {
 		
-		return userRepo.getById(id);
+		return userRepo.findById(id).get();
 	}
 
 }

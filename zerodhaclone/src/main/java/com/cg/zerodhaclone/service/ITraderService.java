@@ -16,4 +16,5 @@ public interface ITraderService {
 	public Trader updateTrader(long traderId,Trader trader);
 	public Trader addTrader(Trader trader);
 	public Trader getByEmailId(String emailId);
+	public List<Trader> getAllTraders();
 }
