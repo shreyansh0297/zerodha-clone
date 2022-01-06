@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,5 +38,12 @@ public class ShareController {
 	@GetMapping("{id}")
 	public ResponseEntity<Shares> getShareById(@PathVariable long id){
 		return new ResponseEntity<Shares>(shareService.getShareById(id),HttpStatus.OK);
+	}
+	
+	@PatchMapping("{traderId}")
+	public ResponseEntity<Shares> attachTrader(@PathVariable long traderId,
+			@RequestBody Shares share){
+		return new ResponseEntity<Shares>(shareService.attachTrader(traderId, share),
+				HttpStatus.OK);
 	}
 }

@@ -14,12 +14,6 @@ public class UserServiceImpl implements IUserService{
 	
 	@Autowired
 	private IUserRepository userRepo;
-	
-	@Override
-	public User addNewUser(User user) {
-
-		return userRepo.save(user);
-	}
 
 	@Override
 	public User getUserEmail(String emailId) {

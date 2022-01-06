@@ -61,8 +61,41 @@ public class TraderServiceImpl implements ITraderService{
 	}
 
 	@Override
+	public Trader updateTrader(long traderId,Trader trader) {
+		Trader existingTrader = traderRepo.findById(traderId).get();
+		existingTrader.setBalance(trader.getBalance());
+		existingTrader.setPanCard(trader.getPanCard());
+		
+		return traderRepo.save(existingTrader);
+	}
+
+	@Override
 	public Trader addTrader(Trader trader) {
 		return traderRepo.save(trader);
 	}
+
+	@Override
+	public Trader getByEmailId(String emailId) {
+		return traderRepo.findByEmailId(emailId);
+	}
+	
+	
+//	@Override
+//	public Trader buyShare(long traderId, Shares share) {
+//		Trader existingTrader = traderRepo.findById(traderId).get();
+//		List<Shares> listOfShares = shareRepo.findAll();
+////		Shares share = shareRepo.findById(shareId).get();
+//		List<Shares> listOfShares2 = new ArrayList<>();
+//		
+//		
+//		for(Shares share:listOfShares) {
+//			if(share.getId() == shareId) {
+//				listOfShares2.add(share);
+//			}
+//		}
+//		existingTrader.setShares(listOfShares2);
+//		traderRepo.save(existingTrader);
+//		return existingTrader;
+//	}
 
 }

@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -22,9 +24,12 @@ public class Shares {
 	private String companyName;
 	private LocalDate buyDate;
 	private LocalDate sellDate;
-	private float price;
+	private double price;
 	
 	@ManyToOne
+	@JoinTable(name = "trader_shares", 
+	joinColumns = @JoinColumn(name = "trader_id"), 
+	inverseJoinColumns = @JoinColumn(name = "shares_id"))
 	private Trader trader;
 	
 	public long getId() {
@@ -57,16 +62,22 @@ public class Shares {
 	public void setSellDate(LocalDate sellDate) {
 		this.sellDate = sellDate;
 	}
-	public float getPrice() {
+	public double getPrice() {
 		return price;
 	}
-	public void setPrice(float price) {
+	public Trader getTrader() {
+		return trader;
+	}
+	public void setTrader(Trader trader) {
+		this.trader = trader;
+	}
+	public void setPrice(double price) {
 		this.price = price;
 	}
 	public Shares() {
 		super();
 	}
-	public Shares(int quantity, String companyName, LocalDate buyDate, LocalDate sellDate, float price) {
+	public Shares(int quantity, String companyName, LocalDate buyDate, LocalDate sellDate, double price) {
 		super();
 		this.quantity = quantity;
 		this.companyName = companyName;
@@ -74,7 +85,7 @@ public class Shares {
 		this.sellDate = sellDate;
 		this.price = price;
 	}
-	public Shares(long id, int quantity, String companyName, LocalDate buyDate, LocalDate sellDate, float price) {
+	public Shares(long id, int quantity, String companyName, LocalDate buyDate, LocalDate sellDate, double price) {
 		super();
 		this.id = id;
 		this.quantity = quantity;
@@ -82,6 +93,37 @@ public class Shares {
 		this.buyDate = buyDate;
 		this.sellDate = sellDate;
 		this.price = price;
+	}
+	
+	
+	public Shares(long id, int quantity, String companyName, LocalDate buyDate, double price) {
+		super();
+		this.id = id;
+		this.quantity = quantity;
+		this.companyName = companyName;
+		this.buyDate = buyDate;
+		this.price = price;
+	}
+	
+	public Shares(int quantity, String companyName, LocalDate buyDate, LocalDate sellDate, double price, Trader trader) {
+		super();
+		this.quantity = quantity;
+		this.companyName = companyName;
+		this.buyDate = buyDate;
+		this.sellDate = sellDate;
+		this.price = price;
+		this.trader = trader;
+	}
+	public Shares(long id, int quantity, String companyName, LocalDate buyDate, LocalDate sellDate, double price,
+			Trader trader) {
+		super();
+		this.id = id;
+		this.quantity = quantity;
+		this.companyName = companyName;
+		this.buyDate = buyDate;
+		this.sellDate = sellDate;
+		this.price = price;
+		this.trader = trader;
 	}
 	@Override
 	public String toString() {

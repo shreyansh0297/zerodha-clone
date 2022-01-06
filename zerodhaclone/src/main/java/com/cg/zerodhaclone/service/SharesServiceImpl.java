@@ -6,13 +6,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cg.zerodhaclone.entities.Shares;
+import com.cg.zerodhaclone.entities.Trader;
 import com.cg.zerodhaclone.repository.ISharesRepository;
+import com.cg.zerodhaclone.repository.ITraderRepository;
 
 @Service
 public class SharesServiceImpl implements ISharesService{
 
 	@Autowired
-	ISharesRepository shareRepo;
+	private ISharesRepository shareRepo;
+	
+	@Autowired
+	private ITraderRepository traderRepo;
 	
 	@Override
 	public Shares addNewShares(Shares shares) {
@@ -29,6 +34,14 @@ public class SharesServiceImpl implements ISharesService{
 	@Override
 	public List<Shares> listAllShares() {
 		return shareRepo.findAll();
+	}
+
+	@Override
+	public Shares attachTrader(long traderId, Shares share) {
+		Shares existingShare = shareRepo.findById(share.getId()).get();
+		Trader trader = traderRepo.findById(traderId).get();
+		existingShare.setTrader(trader);
+		return shareRepo.save(existingShare);
 	}
 
 }

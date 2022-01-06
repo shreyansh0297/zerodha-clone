@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.zerodhaclone.entities.Trader;
+import com.cg.zerodhaclone.exception.EmailAlreadyExistsException;
 import com.cg.zerodhaclone.service.ITraderService;
 
 @RestController
@@ -21,17 +23,28 @@ public class TraderController {
 	@Autowired
 	private ITraderService traderService;
 	
-	@PatchMapping("/update")
-	public ResponseEntity<Trader> updateTrader(@RequestBody Trader trader){
-		return new ResponseEntity<Trader>(traderService.addTrader(trader),HttpStatus.OK);
+	@PatchMapping("/update/{traderId}")
+	public ResponseEntity<Trader> updateTrader(@PathVariable long traderId,@RequestBody Trader trader){
+		return new ResponseEntity<Trader>(traderService.updateTrader(traderId,trader),
+				HttpStatus.OK);
 	}
 	
+	@PostMapping("/register")
+	public ResponseEntity<Trader> addTrader(@RequestBody Trader newTrader) throws EmailAlreadyExistsException{
+		Trader trader = traderService.getByEmailId(newTrader.getEmailId());
+		if (trader != null) {
+			throw new EmailAlreadyExistsException(
+					"Email already exists ! "
+					+ "Try to login or register with a different email id");
+		}
+		return new ResponseEntity<Trader>(traderService.addTrader(trader),HttpStatus.CREATED);
+	}
 	
-	@PostMapping("{shareId}")
+	@PatchMapping("{shareId}")
 	public ResponseEntity<Trader> buyShare(@PathVariable long shareId,
 			@RequestBody Trader trader){
 		
 		return new ResponseEntity<Trader>(traderService.buyShare(shareId,trader), 
-				HttpStatus.CREATED);
+				HttpStatus.OK);
 	}
 }

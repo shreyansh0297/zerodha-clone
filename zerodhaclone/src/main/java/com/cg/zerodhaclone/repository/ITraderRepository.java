@@ -8,5 +8,5 @@ import com.cg.zerodhaclone.entities.Trader;
 @Repository
 public interface ITraderRepository extends JpaRepository<Trader, Long>{
 
-	
+	public Trader findByEmailId(String emailId);
 }

@@ -13,5 +13,7 @@ public interface ITraderService {
 
 	public Trader buyShare(long shareId,Trader trader);
 	public Trader sellShare(long shareId,Trader trader);
+	public Trader updateTrader(long traderId,Trader trader);
 	public Trader addTrader(Trader trader);
+	public Trader getByEmailId(String emailId);
 }

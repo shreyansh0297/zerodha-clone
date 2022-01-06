@@ -12,4 +12,5 @@ public interface ISharesService {
 	public Shares addNewShares(Shares shares);
 	public Shares getShareById(long id);
 	public List<Shares> listAllShares();
+	public Shares attachTrader(long traderId, Shares share);
 }

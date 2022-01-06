@@ -3,7 +3,9 @@ package com.cg.zerodhaclone.entities;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.JoinColumn;
@@ -13,18 +15,16 @@ import javax.persistence.Table;
 @Table(name = "trader_tbl")
 public class Trader extends User{
 
-	private float balance;
-	@OneToMany
-	@JoinTable(name = "trader_shares", 
-	joinColumns = @JoinColumn(name = "trader_id"), 
-	inverseJoinColumns = @JoinColumn(name = "shares_id"))
+	private double balance;
+	@OneToMany(mappedBy = "trader",
+			fetch = FetchType.LAZY,cascade = CascadeType.MERGE)
 	private List<Shares> shares;
 	private String panCard;
 	
-	public float getBalance() {
+	public double getBalance() {
 		return balance;
 	}
-	public void setBalance(float balance) {
+	public void setBalance(double balance) {
 		this.balance = balance;
 	}
 	public List<Shares> getShares() {
@@ -39,7 +39,7 @@ public class Trader extends User{
 	public void setPanCard(String panCard) {
 		this.panCard = panCard;
 	}
-	public Trader(float balance, List<Shares> shares, String panCard) {
+	public Trader(double balance, List<Shares> shares, String panCard) {
 		super();
 		this.balance = balance;
 		this.shares = shares;
